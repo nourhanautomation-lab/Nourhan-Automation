@@ -1,0 +1,542 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Nourhan Automation — Missed Call Textback + AI Booking</title>
+  <meta name="description" content="Capture missed calls and inquiries automatically with missed-call textback, AI FAQs, and optional AI voice agent. Book more jobs without hiring extra staff." />
+  <style>
+    :root{
+      --bg:#0b0f19;
+      --card:#0f172a;
+      --muted:#94a3b8;
+      --text:#e2e8f0;
+      --accent:#7c3aed;
+      --accent2:#22c55e;
+      --border:rgba(148,163,184,.18);
+      --shadow: 0 12px 40px rgba(0,0,0,.45);
+      --radius: 18px;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      color:var(--text);
+      background:
+        radial-gradient(1000px 700px at 80% -10%, rgba(124,58,237,.35), transparent 55%),
+        radial-gradient(900px 700px at 10% 10%, rgba(34,197,94,.18), transparent 55%),
+        linear-gradient(180deg, #070a12, var(--bg) 25%, #070a12);
+      line-height:1.45;
+    }
+    a{color:inherit}
+    .wrap{max-width:1100px;margin:0 auto;padding:24px}
+    header{
+      position:sticky; top:0; z-index:20;
+      backdrop-filter: blur(10px);
+      background:rgba(11,15,25,.7);
+      border-bottom:1px solid var(--border);
+    }
+    .nav{
+      display:flex; align-items:center; justify-content:space-between;
+      gap:16px;
+    }
+    .brand{
+      display:flex; align-items:center; gap:12px; text-decoration:none;
+      font-weight:700; letter-spacing:.2px;
+    }
+    .logo{
+      width:36px;height:36px;border-radius:12px;
+      background: conic-gradient(from 210deg, var(--accent), var(--accent2), #38bdf8, var(--accent));
+      box-shadow:0 10px 25px rgba(124,58,237,.25);
+    }
+    .links{display:flex; gap:14px; flex-wrap:wrap; align-items:center}
+    .links a{
+      text-decoration:none; color:var(--muted);
+      padding:8px 10px; border-radius:12px;
+    }
+    .links a:hover{background:rgba(148,163,184,.08);color:var(--text)}
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center;
+      padding:10px 14px; border-radius:14px;
+      border:1px solid var(--border);
+      text-decoration:none;
+      font-weight:600;
+      gap:8px;
+    }
+    .btn.primary{
+      background:linear-gradient(135deg, rgba(124,58,237,.95), rgba(124,58,237,.65));
+      border-color:rgba(124,58,237,.6);
+      box-shadow: 0 16px 40px rgba(124,58,237,.18);
+    }
+    .btn.primary:hover{filter:brightness(1.05)}
+    .btn.ghost{color:var(--text); background:rgba(148,163,184,.06)}
+    .hero{
+      padding:56px 0 28px;
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap:26px;
+      align-items:stretch;
+    }
+    @media (max-width: 900px){
+      .hero{grid-template-columns:1fr; padding-top:34px}
+    }
+    .pill{
+      display:inline-flex; gap:10px; align-items:center;
+      padding:8px 12px; border-radius:999px;
+      background:rgba(148,163,184,.07);
+      border:1px solid var(--border);
+      color:var(--muted);
+      width:fit-content;
+    }
+    h1{font-size:44px; line-height:1.06; margin:14px 0 12px}
+    @media (max-width: 520px){h1{font-size:36px}}
+    .sub{color:var(--muted); font-size:18px; max-width:52ch}
+    .ctaRow{display:flex; gap:12px; flex-wrap:wrap; margin-top:18px}
+    .card{
+      background:rgba(15,23,42,.75);
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      box-shadow: var(--shadow);
+    }
+    .heroCard{
+      padding:18px;
+      display:flex;
+      flex-direction:column;
+      gap:14px;
+      overflow:hidden;
+      position:relative;
+    }
+    .heroCard:before{
+      content:"";
+      position:absolute; inset:-120px -80px auto auto;
+      width:280px;height:280px;border-radius:50%;
+      background:radial-gradient(circle at 30% 30%, rgba(34,197,94,.35), transparent 60%);
+      filter: blur(2px);
+    }
+    .kpis{display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-top:6px}
+    .kpi{
+      padding:12px; border-radius:16px;
+      background:rgba(148,163,184,.06);
+      border:1px solid rgba(148,163,184,.14);
+    }
+    .kpi b{display:block; font-size:18px}
+    .kpi span{color:var(--muted); font-size:12px}
+    .mini{
+      margin-top:6px;
+      display:flex; flex-direction:column; gap:10px;
+    }
+    .miniRow{
+      display:flex; gap:10px; align-items:flex-start;
+      padding:12px; border-radius:16px;
+      background:rgba(2,6,23,.35);
+      border:1px solid rgba(148,163,184,.12);
+    }
+    .dot{
+      width:12px;height:12px;border-radius:6px;margin-top:4px;
+      background:linear-gradient(135deg, var(--accent2), #38bdf8);
+      box-shadow:0 10px 20px rgba(34,197,94,.2);
+    }
+    .miniRow p{margin:0;color:var(--muted); font-size:14px}
+    .section{padding:26px 0}
+    .section h2{margin:0 0 10px; font-size:28px}
+    .grid3{display:grid; grid-template-columns:repeat(3,1fr); gap:14px}
+    @media (max-width: 900px){.grid3{grid-template-columns:1fr}}
+    .feature{padding:16px}
+    .feature h3{margin:10px 0 6px}
+    .feature p{margin:0; color:var(--muted)}
+    .icon{
+      width:40px;height:40px;border-radius:14px;
+      display:grid; place-items:center;
+      background:rgba(124,58,237,.14);
+      border:1px solid rgba(124,58,237,.25);
+    }
+    .split{
+      display:grid; grid-template-columns:1fr 1fr; gap:14px; align-items:start;
+    }
+    @media (max-width: 900px){.split{grid-template-columns:1fr}}
+    .pricing{padding:16px}
+    .priceTag{font-size:34px;margin:4px 0}
+    ul{margin:10px 0 0; padding-left:18px; color:var(--muted)}
+    li{margin:6px 0}
+    .badge{
+      display:inline-flex; align-items:center; gap:8px;
+      color:#dbeafe;
+      background:rgba(59,130,246,.14);
+      border:1px solid rgba(59,130,246,.25);
+      padding:6px 10px;
+      border-radius:999px;
+      font-size:12px;
+      width:fit-content;
+    }
+    .faq{padding:16px}
+    details{
+      border:1px solid rgba(148,163,184,.14);
+      border-radius:14px;
+      background:rgba(2,6,23,.35);
+      padding:12px 12px;
+      margin:10px 0;
+    }
+    summary{cursor:pointer; font-weight:650}
+    details p{color:var(--muted); margin:10px 0 0}
+    .contact{
+      padding:18px;
+      display:grid; grid-template-columns:1.1fr .9fr; gap:14px;
+    }
+    @media (max-width: 900px){.contact{grid-template-columns:1fr}}
+    .form{
+      display:grid; gap:10px;
+      padding:14px;
+      border-radius:16px;
+      background:rgba(2,6,23,.35);
+      border:1px solid rgba(148,163,184,.14);
+    }
+    label{font-size:12px; color:var(--muted)}
+    input, textarea{
+      width:100%;
+      padding:12px 12px;
+      border-radius:14px;
+      border:1px solid rgba(148,163,184,.18);
+      background:rgba(15,23,42,.85);
+      color:var(--text);
+      outline:none;
+    }
+    textarea{min-height:120px; resize:vertical}
+    input:focus, textarea:focus{border-color:rgba(124,58,237,.7); box-shadow:0 0 0 4px rgba(124,58,237,.12)}
+    footer{
+      padding:22px 0 40px;
+      color:var(--muted);
+      border-top:1px solid var(--border);
+      margin-top:24px;
+    }
+    .small{font-size:12px;color:var(--muted)}
+    .note{
+      padding:12px;
+      border-radius:16px;
+      border:1px solid rgba(148,163,184,.14);
+      background:rgba(148,163,184,.06);
+      color:var(--muted);
+    }
+
+    /* Guarantee polish (optional but nice) */
+    #guarantee ul li{margin:6px 0}
+    #guarantee h2{font-size:26px}
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="wrap nav">
+      <a class="brand" href="#top">
+        <div class="logo" aria-hidden="true"></div>
+        <div>
+          Nourhan Automation
+          <div class="small">Missed-call capture • Textback • AI booking</div>
+        </div>
+      </a>
+      <div class="links">
+        <a href="#features">Features</a>
+        <a href="#how">How it works</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#faq">FAQ</a>
+        <a href="#guarantee">Guarantee</a>
+        <a class="btn primary" href="#contact">Book a demo</a>
+      </div>
+    </div>
+  </header>
+
+  <main id="top" class="wrap">
+    <section class="hero">
+      <div>
+        <div class="pill">⚡ Stop losing leads when you’re busy</div>
+        <h1>Every missed call is a lost job. Capture missed calls automatically, and turn more callers into booked work.</h1>
+        <p class="sub">
+          I help local service businesses recover lost leads, respond instantly when calls are missed, answer common questions, and move people toward booking, without hiring extra staff or adding payroll.
+        </p>
+        <div class="ctaRow">
+          <a class="btn primary" href="#contact">Book a 10–15 min call</a>
+          <a class="btn ghost" href="#features">See what you get</a>
+        </div>
+        <p class="small" style="margin-top:14px">
+          Works great for cleaning companies, salons, home services, clinics, and more.
+        </p>
+      </div>
+
+      <div class="card heroCard" aria-label="Preview card">
+        <div class="badge">✅ Recover missed revenue in 1–2 days (typical)</div>
+        <div class="kpis">
+          <div class="kpi"><b>Instant</b><span>textback after missed call</span></div>
+          <div class="kpi"><b>24/7</b><span>FAQ + lead capture</span></div>
+          <div class="kpi"><b>Optional</b><span>AI voice agent</span></div>
+        </div>
+        <div class="mini">
+          <div class="miniRow">
+            <div class="dot"></div>
+            <p><b>Missed call?</b> Customer receives a friendly text within seconds and can reply to book.</p>
+          </div>
+          <div class="miniRow">
+            <div class="dot"></div>
+            <p><b>Lead texts “price?”</b> Auto-reply pulls answers from your FAQ/knowledge base.</p>
+          </div>
+          <div class="miniRow">
+            <div class="dot"></div>
+            <p><b>Owner notified</b> You get an internal alert with name + number so you can follow up fast.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ✅ GUARANTEE SECTION (ADDED) -->
+    <section id="guarantee" class="section">
+      <div class="card" style="padding:22px">
+        <div style="display:flex; gap:14px; align-items:flex-start; flex-wrap:wrap;">
+          <div style="min-width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:22px;
+            background:rgba(124,58,237,.16);border:1px solid rgba(124,58,237,.35);">
+            🛡️
+          </div>
+
+          <div style="flex:1">
+            <h2 style="margin:0 0 6px">30-Day Setup Satisfaction Guarantee</h2>
+
+            <p class="sub" style="margin:0 0 10px">
+                If you’re not satisfied with the setup within 30 days of launch, I’ll revise, optimize, or refund the setup fee.
+
+                This guarantee covers system configuration and functionality (missed-call textback, notifications, and workflows), not business outcomes like lead volume or revenue.
+                
+            </p>
+
+            <ul style="margin:10px 0 0 18px">
+              <li><b>Risk-free launch:</b> End-to-end testing before and after go-live</li>
+              <li><b>Fast optimization:</b> Copy, timing, and logic tweaks included</li>
+              <li><b>Clear success criteria:</b> Missed calls trigger texts + you receive alerts</li>
+            </ul>
+
+            <div class="ctaRow" style="margin-top:14px">
+              <a class="btn primary" href="#contact">Book a quick demo</a>
+              <a class="btn ghost" href="#faq">Read the FAQ</a>
+            </div>
+
+            <p class="small" style="margin-top:12px">
+              *Guarantee covers system functionality and configuration. Results depend on your lead volume,
+              services, and response time.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="features" class="section">
+      <h2>What I build for you</h2>
+      <p class="sub">A clean system that captures leads you would normally lose and keeps conversations moving, even when you’re on a job.</p>
+
+      <div class="grid3" style="margin-top:14px">
+        <div class="card feature">
+          <div class="icon">📲</div>
+          <h3>Missed Call Textback</h3>
+          <p>Automatically text anyone who calls and doesn’t reach you. You choose the tone, timing, and follow-ups.</p>
+        </div>
+        <div class="card feature">
+          <div class="icon">🗓️</div>
+          <h3>Booking + Follow-up</h3>
+          <p>Route leads to booking, gather details, and send reminders/confirmations to reduce no-shows.</p>
+        </div>
+        <div class="card feature">
+          <div class="icon">🤖</div>
+          <h3>AI FAQ Assistant</h3>
+          <p>Answer common questions using your website/FAQ content, without guessing. Escalates when needed.</p>
+        </div>
+        <div class="card feature">
+          <div class="icon">📣</div>
+          <h3>Owner Notifications</h3>
+          <p>Get instant internal alerts with the caller’s name/number + notes so you can follow up fast.</p>
+        </div>
+        <div class="card feature">
+          <div class="icon">☎️</div>
+          <h3>Optional AI Voice Agent</h3>
+          <p>An AI receptionist that can answer calls, qualify leads, and book appointments (when enabled).</p>
+        </div>
+        <div class="card feature">
+          <div class="icon">🧾</div>
+          <h3>Compliance-Friendly Setup</h3>
+          <p>Opt-in language, STOP to opt out, and messaging best practices to protect deliverability.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="how" class="section split">
+      <div class="card" style="padding:16px">
+        <h2>How it works</h2>
+        <ol style="color:var(--muted); padding-left:18px; margin:10px 0 0">
+          <li><b>Quick intake</b>: your business type, services, hours, and how you want leads handled.</li>
+          <li><b>Build</b>: missed-call workflow, tags, notifications, and conversational replies.</li>
+          <li><b>Test</b>: we run test calls/messages and fine-tune the wording to sound natural.</li>
+          <li><b>Go live</b>: you start capturing leads you used to miss.</li>
+        </ol>
+        <div class="note" style="margin-top:14px">
+          <b>Tip:</b> If your SMS approval is delayed, we can still demo using call flows, email notifications,
+          and conversation testing, then activate SMS once approved.
+        </div>
+      </div>
+
+      <div class="card" style="padding:16px">
+        <h2>Perfect for</h2>
+        <p class="sub" style="margin-top:8px">
+          Any business where leads call while you’re busy:
+        </p>
+        <ul>
+          <li>Cleaning companies & home services</li>
+          <li>Salons, lash techs, med spas</li>
+          <li>Contractors, mobile services, repair</li>
+          <li>Clinics & appointment-based businesses</li>
+        </ul>
+        <p class="small" style="margin-top:14px">
+          Want a different niche? It’s customizable.
+        </p>
+      </div>
+    </section>
+
+    <section id="pricing" class="section">
+      <h2>Simple pricing</h2>
+      <p class="sub">You can start with the essentials and add advanced options later.</p>
+
+      <div class="grid3" style="margin-top:14px">
+        <div class="card pricing">
+          <div class="badge">Starter</div>
+          <div class="priceTag">$297</div>
+          <div class="small">One-time setup</div>
+          <ul>
+            <li>Missed-call textback workflow</li>
+            <li>Internal missed-call notifications</li>
+            <li>Basic FAQ auto-replies</li>
+            <li>Testing + go-live support</li>
+          </ul>
+        </div>
+
+        <div class="card pricing" style="border-color: rgba(124,58,237,.45)">
+          <div class="badge" style="background:rgba(124,58,237,.16);border-color:rgba(124,58,237,.28)">Most popular</div>
+          <div class="priceTag">$497 + $97/mo</div>
+          <div class="small">One-time setup + monthly support</div>
+          <ul>
+            <li>Everything in Starter</li>
+            <li>Lead capture (name, service, timeline)</li>
+            <li>Booking prompts + follow-ups</li>
+            <li>Monthly tweaks (copy + logic)</li>
+          </ul>
+        </div>
+
+        <div class="card pricing">
+          <div class="badge">Pro</div>
+          <div class="priceTag">Starting at $1,500</div>
+          <div class="small">Custom build</div>
+          <ul>
+            <li>Everything in Growth</li>
+            <li>Optional AI voice agent</li>
+            <li>Advanced routing + tagging</li>
+            <li>Custom knowledge base setup</li>
+          </ul>
+        </div>
+      </div>
+
+      <p class="small" style="margin-top:10px">
+        Most clients recover the monthly cost after 1–2 booked jobs.
+      </p>
+    </section>
+
+    <section id="faq" class="section">
+      <h2>FAQ</h2>
+      <div class="card faq">
+        <details>
+          <summary>Do I need a new phone number?</summary>
+          <p>Not always. You can use a new tracking number, or forward calls from your existing number depending on your setup.</p>
+        </details>
+        <details>
+          <summary>What if SMS approval is pending?</summary>
+          <p>You can still demo the workflows and call handling, and use internal notifications. Once SMS is approved, we enable live texting.</p>
+        </details>
+        <details>
+          <summary>Will it sound like a bot?</summary>
+          <p>No — we write messages in your voice, add natural delays, and keep replies short and human. The AI only answers from your provided content.</p>
+        </details>
+        <details>
+          <summary>Can I turn the AI voice agent off?</summary>
+          <p>Yes. The voice agent is optional. Many businesses start with missed-call textback and add voice later.</p>
+        </details>
+
+        <!-- ✅ GUARANTEE FAQ (ADDED) -->
+        <details>
+          <summary>What exactly is covered by the guarantee?</summary>
+          <p>
+            If you’re not satisfied with your setup within 30 days of launch, I’ll revise, optimize, or refund the setup fee. This guarantee covers system configuration and functionality (missed-call textback, notifications, and workflows), not business results like lead volume, bookings, or revenue.
+          </p>
+        </details>
+      </div>
+    </section>
+
+    <section id="contact" class="section">
+      <div class="card contact">
+        <div>
+          <h2>Book a quick demo</h2>
+          <p class="sub">Tell me your business type and how you currently get calls/leads. I’ll reply with 2–3 setup options.</p>
+          <div class="note" style="margin-top:14px">
+            <b>Email:</b> <span class="small">nourhanautomation@gmail.com</span><br/>
+            <b>Location:</b> Virginia (remote setup available)
+          </div>
+          <p class="small" style="margin-top:12px">
+            Privacy: I only use your info to respond to your request.
+          </p>
+        </div>
+
+        <form class="form" onsubmit="return mailtoSubmit(event)">
+          <div>
+            <label>Your name</label>
+            <input id="name" required placeholder="Your name" />
+          </div>
+          <div>
+            <label>Business name</label>
+            <input id="biz" required placeholder="Business name" />
+          </div>
+          <div>
+            <label>Phone or email</label>
+            <input id="contactInfo" required placeholder="Phone or email" />
+          </div>
+          <div>
+            <label>What do you want automated?</label>
+            <textarea id="msg" required placeholder="Example: missed calls textback + booking prompts"></textarea>
+          </div>
+          <button class="btn primary" type="submit">Send request</button>
+          <div class="small">This button opens your email app (no data is stored on this page).</div>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <div style="display:flex; justify-content:space-between; gap:14px; flex-wrap:wrap">
+        <div>© <span id="year"></span> Nourhan Automation</div>
+        <div class="small">Built for fast demos. Replace placeholders before publishing.</div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    function mailtoSubmit(e){
+      e.preventDefault();
+      const name = document.getElementById('name').value.trim();
+      const biz = document.getElementById('biz').value.trim();
+      const contact = document.getElementById('contactInfo').value.trim();
+      const msg = document.getElementById('msg').value.trim();
+      const subject = encodeURIComponent(`Demo request — ${biz}`);
+      const body = encodeURIComponent(
+        `Name: ${name}\nBusiness: ${biz}\nContact: ${contact}\n\nRequest:\n${msg}\n`
+      );
+
+      // ✅ Set to your real email:
+      const to = "nourhanautomation@gmail.com";
+      window.location.href = `mailto:${to}?subject=${subject}&body=${body}`;
+      return false;
+    }
+  </script>
+</body>
+</html>
