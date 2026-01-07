@@ -506,7 +506,7 @@
           <div class="small">This button opens your email app (no data is stored on this page). 
             <div class="small" style="margin-top:10px; line-height:1.4;">
                 <strong>SMS Consent:</strong><br>
-                By submitting this form, you agree to receive SMS messages from <strong>Nourhan Automation</strong>
+                <strong>By submitting this form, you consent to receive SMS messages from Nourhan Automation</strong>
                 related to your inquiry, missed calls, and scheduling.
                 Message & data rates may apply.
                 Reply <strong>STOP</strong> to opt out at any time.
@@ -515,12 +515,103 @@
         </form>
       </div>
     </section>
+    <section id="privacy" class="section">
+              <div class="card" style="padding:16px">
+                <h2>Privacy Policy</h2>
+                <p class="sub">Last updated: <span id="policyDate"></span></p>
+        
+                <p class="small">
+                  Nourhan Automation (“we,” “us”) respects your privacy. This Privacy Policy explains what information we collect and how we use it.
+                </p>
+        
+                <h3 style="margin-top:16px">Information we collect</h3>
+                <ul>
+                  <li>Contact details you submit (name, business name, phone number, email)</li>
+                  <li>Message content you send through the form (what you want automated)</li>
+                </ul>
+        
+                <h3 style="margin-top:16px">How we use your information</h3>
+                <ul>
+                  <li>To respond to your inquiry and provide demo/setup options</li>
+                  <li>To send appointment or service-related messages if you opt in</li>
+                  <li>To improve our workflows and support</li>
+                </ul>
+        
+                <h3 style="margin-top:16px">SMS messaging privacy</h3>
+                <p class="small">
+                  If you opt in to receive text messages, we may send you SMS messages related to your inquiry, scheduling, and service updates.
+                  Message frequency varies. Message &amp; data rates may apply.
+                  You can opt out at any time by replying <b>STOP</b>. For help, reply <b>HELP</b>.
+                </p>
+        
+                <h3 style="margin-top:16px">Sharing of information</h3>
+                <p class="small">
+                  We do not sell your personal information. We may share information only as needed to operate our services
+                  (for example, messaging/automation platforms used to deliver messages) and to comply with legal obligations.
+                </p>
+        
+                <h3 style="margin-top:16px">Data retention</h3>
+                <p class="small">
+                  We retain your information only as long as needed to respond to your request and provide services, unless a longer retention period is required by law.
+                </p>
+        
+                <h3 style="margin-top:16px">Contact</h3>
+                <p class="small">
+                  Email: <b>nourhanautomation@gmail.com</b><br/>
+                  Location: Virginia (remote setup available)
+                </p>
+              </div>
+            </section>
+        
+            <section id="terms" class="section">
+              <div class="card" style="padding:16px">
+                <h2>Terms of Service</h2>
+                <p class="sub">Last updated: <span id="termsDate"></span></p>
+        
+                <p class="small">
+                  By using this website or submitting the form, you agree to these Terms of Service.
+                </p>
+        
+                <h3 style="margin-top:16px">1) Services</h3>
+                <p class="small">
+                  Nourhan Automation provides automation consulting and setup (e.g., missed-call textback, lead capture, booking prompts, and optional AI tools).
+                  Specific deliverables depend on your chosen package and intake details.
+                </p>
+        
+                <h3 style="margin-top:16px">2) Messaging consent (SMS)</h3>
+                <p class="small">
+                  If you opt in to receive SMS messages, you authorize Nourhan Automation to send you text messages related to your inquiry,
+                  scheduling, and service updates. Message frequency varies. Message &amp; data rates may apply.
+                  You can opt out any time by replying <b>STOP</b>. For help, reply <b>HELP</b>.
+                </p>
+        
+                <h3 style="margin-top:16px">3) No guarantees</h3>
+                <p class="small">
+                  We do not guarantee increased revenue, booked jobs, conversion rates, or specific business outcomes.
+                  Results depend on many factors including your business, responsiveness, market demand, and lead quality.
+                </p>
+        
+                <h3 style="margin-top:16px">4) Acceptable use</h3>
+                <p class="small">
+                  You agree not to use our services for unlawful, deceptive, or spam-related messaging. You are responsible for ensuring your messaging complies with applicable laws and carrier requirements.
+                </p>
+        
+                <h3 style="margin-top:16px">5) Contact</h3>
+                <p class="small">
+                  Email: <b>nourhanautomation@gmail.com</b><br/>
+                  Location: Virginia (remote setup available)
+                </p>
+              </div>
+            </section>
   </main>
 
   <footer>
     <div class="wrap">
       <div style="display:flex; justify-content:space-between; gap:14px; flex-wrap:wrap">
-        <div>© <span id="year"></span> Nourhan Automation</div>
+        <div>
+            © <span id="year"></span> Nourhan Automation ·
+            <a href="#terms">Terms</a> · <a href="#privacy">Privacy</a>
+          </div>
         <div class="small">Built for fast demos. Replace placeholders before publishing.</div>
       </div>
     </div>
@@ -528,7 +619,8 @@
 
   <script>
     document.getElementById("year").textContent = new Date().getFullYear();
-
+    document.getElementById("policyDate").textContent = new Date().toLocaleDateString();
+document.getElementById("termsDate").textContent = new Date().toLocaleDateString();
     function mailtoSubmit(e){
       e.preventDefault();
       const name = document.getElementById('name').value.trim();
@@ -548,4 +640,3 @@
   </script>
 </body>
 </html>
-
