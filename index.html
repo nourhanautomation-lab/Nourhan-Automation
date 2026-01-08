@@ -220,6 +220,19 @@
     /* Guarantee polish (optional but nice) */
     #guarantee ul li{margin:6px 0}
     #guarantee h2{font-size:26px}
+    <style>
+  .sms-consent {
+    display: block;
+    margin: 14px 0;
+    font-size: 0.9rem;
+    line-height: 1.4;
+  }
+
+  .sms-consent input {
+    margin-right: 8px;
+  }
+</style>
+
   </style>
 </head>
 
@@ -502,6 +515,12 @@
             <label>What do you want automated?</label>
             <textarea id="msg" required placeholder="Example: missed calls textback + booking prompts"></textarea>
           </div>
+          <label class="sms-consent">
+            <input type="checkbox" id="smsConsent" required>
+            I agree to receive SMS messages from Nourhan Automation related to my inquiry,
+            missed calls, and scheduling. Message frequency varies. Msg & data rates may apply.
+            Reply STOP to opt out, HELP for help.
+          </label>
           <button class="btn primary" type="submit">Send request</button>
           <div class="small">This button opens your email app (no data is stored on this page). 
             <div class="small" style="margin-top:10px; line-height:1.4;">
